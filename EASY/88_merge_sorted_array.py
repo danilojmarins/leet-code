@@ -34,3 +34,7 @@ class Solution:
                 nums1[n] = nums2[n]
                 n -= 1
             return
+        
+## Time Complexity = O(m + n)
+## Runtime = 35ms ~ 42ms -> Beats 95% ~ 70%
+## Memory = 16.5MB -> Beats 7%
