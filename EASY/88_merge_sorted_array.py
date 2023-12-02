@@ -1,20 +1,36 @@
 class Solution:
     def merge(self, nums1: list[int], m: int, nums2: list[int], n: int) -> None:
-        
-        # keep track of last element in both lists
-        i = n - 1
-        j = m - 1
+        """
+        Do not return anything, modify nums1 in-place instead.
 
-        while i >= 0 and j >= 0:
-            
-            index = j + i + 1
+        nums1 [2, 5, 7, 0, 0, 0, 0]
+        nums2 [-2, -1, 4, 8]
+        m = 3
+        m = 4
 
-            if nums2[i] >= nums1[j]:
-                nums1[index] = nums2[i]     # greater element is in nums2 and moved end of nums1
-                i -= 1                      # point to previous element of nums2
+        expected output = [-2, -1, 2, 4, 5, 7, 8]
+
+        """
+
+        free = m + n  - 1   # keep track of last insertable space
+
+        # two pointers
+        n -= 1
+        m -= 1
+
+        while n >= 0 and m >= 0:
+
+            if nums2[n] >= nums1[m]:
+                nums1[free] = nums2[n]
+                n -= 1
             else:
-                nums1[index] = nums1[j]     # greater element is in nums1 and moved end of nums1
-                j -= 1                      # point to previous element of nums1
-
-        if j == -1:
-            nums1[0] = nums2[i]             # nums1 is empty or pointer out of bounds
+                nums1[free] = nums1[m]
+                nums1[m] = 0
+                m -= 1
+            free -= 1
+            
+        if m == -1:         # nums1 reached end
+            while n >= 0:
+                nums1[n] = nums2[n]
+                n -= 1
+            return
